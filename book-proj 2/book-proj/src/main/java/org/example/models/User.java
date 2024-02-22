@@ -9,14 +9,14 @@ public class User {
     private int money;
     private String name;
     private String email;
-    private List<Book> books;
+    private boolean isAdmin;
 
 
-    public User(int money, String name, String email, List<Book> books) {
+    public User(int money, String name, String email, boolean isAdmin) {
         this.money = money;
         this.name = name;
         this.email = email;
-        this.books = books;
+        this.isAdmin = isAdmin;
     }
 
     public User() {
@@ -43,8 +43,12 @@ public class User {
         return email;
     }
 
-    public List<Book> getBooks() {
-        return books;
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public boolean getIsAdmin() {
+        return isAdmin;
     }
 
     public void setMoney(int money) {
@@ -59,13 +63,14 @@ public class User {
         this.email = email;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
+
 
     @Override
     public String toString() {
-        return "User{" + "money=" + money + ", name=" + name + ", email=" + email + ", books=" + books + '}';
+        return "User{" + "money=" + money + ", name=" + name + ", email=" + email + ", admin=" + isAdmin + '}';
     }
 
 }

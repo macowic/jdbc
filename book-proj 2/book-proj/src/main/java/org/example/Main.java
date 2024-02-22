@@ -1,18 +1,12 @@
 package org.example;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 import org.example.models.Book;
 import org.example.models.Shop;
-import org.example.repository.BaseRepository;
-import org.example.repository.BookRepository;
-import org.example.repository.ShopRepository;
-import org.example.repository.UserRepository;
-import org.example.utils.BookUtils;
-import org.example.utils.ShopUtils;
-import org.example.utils.UserUtils;
+import org.example.repository.*;
+import org.example.utils.*;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
@@ -22,12 +16,16 @@ public class Main {
         BookRepository bookRepository = new BookRepository();
         ShopRepository shopRepository = new ShopRepository();
         UserRepository userRepository = new UserRepository();
+        PurchaseRepository purchaseRepository = new PurchaseRepository();
+        WishlistRepository wishlistRepository = new WishlistRepository();
 
         while (true) {
             System.out.println("1. Manage books");
             System.out.println("2. Manage shops");
             System.out.println("3. Manage users");
-            System.out.println("4. Exit");
+            System.out.println("4. Manage purchases");
+            System.out.println("5. Manage wishlist");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
 
@@ -42,6 +40,12 @@ public class Main {
                     UserUtils.manageUsers(scanner, userRepository);
                     break;
                 case 4:
+                    PurchaseUtils.managePurchases(scanner, purchaseRepository);
+                    break;
+                case 5:
+                    WishlistUtils.manageWishlist(scanner, wishlistRepository);
+                    break;
+                case 6:
                     System.out.println("Exiting...");
                     return;
                 default:
@@ -49,6 +53,5 @@ public class Main {
             }
         }
     }
-
-
 }
+

@@ -96,5 +96,30 @@ public class UserRepository {
 
             pstmt.executeUpdate();
         }
+
+    }
+
+    public User readUserBooks(int id) throws SQLException {
+        String sql = "SELECT * FROM users WHERE id = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setMoney(rs.getInt("money"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+
+                return user;
+            } else {
+                return null;
+            }
+        }
     }
 }

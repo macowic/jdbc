@@ -8,19 +8,21 @@ public class Book {
     private String genre;
     private String publisher;
     private int year;
+    private int price;
     private Shop shop;
 
 
     public Book() {
 
     }
-    public Book(int id, String title, String author, String genre, String publisher, int year, Shop shop) {
+    public Book(int id, String title, String author, String genre, String publisher, int year, int price, Shop shop) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.publisher = publisher;
         this.year = year;
+        this.price = price;
         this.shop = shop;
     }
 
@@ -65,6 +67,10 @@ public class Book {
         return year;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
     public Shop getShop() {
         return shop;
     }
@@ -75,6 +81,10 @@ public class Book {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public void setShop(Shop shop) {

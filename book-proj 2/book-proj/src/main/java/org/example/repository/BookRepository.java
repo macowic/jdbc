@@ -14,7 +14,7 @@ import static org.example.repository.BaseRepository.getConnection;
 public class BookRepository {
 
     public void createBook(Book book) throws SQLException {
-        String sql = "INSERT INTO books (title, author, genre, publisher, year, shop_id) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO books (title, author, genre, publisher, year, price, shop_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -24,10 +24,11 @@ public class BookRepository {
             pstmt.setString(3, book.getGenre());
             pstmt.setString(4, book.getPublisher());
             pstmt.setInt(5, book.getYear());
+            pstmt.setInt(6, book.getPrice());
             if (book.getShop() != null) {
-                pstmt.setInt(6, book.getShop().getId());
+                pstmt.setInt(7, book.getShop().getId());
             } else {
-                pstmt.setNull(6, java.sql.Types.INTEGER);
+                pstmt.setNull(7, java.sql.Types.INTEGER);
             }
 
 
@@ -53,6 +54,7 @@ public class BookRepository {
                 book.setGenre(rs.getString("genre"));
                 book.setPublisher(rs.getString("publisher"));
                 book.setYear(rs.getInt("year"));
+                book.setPrice(rs.getInt("price"));
                 return book;
             } else {
                 return null;
@@ -76,6 +78,7 @@ public class BookRepository {
                 book.setGenre(rs.getString("genre"));
                 book.setPublisher(rs.getString("publisher"));
                 book.setYear(rs.getInt("year"));
+                book.setPrice(rs.getInt("price"));
                 book.setShop(new ShopRepository().readShop(rs.getInt("shop_id")));
                 books.add(book);
             }
@@ -84,7 +87,7 @@ public class BookRepository {
         return books;
     }
     public void updateBook(Book book) throws SQLException {
-        String sql = "UPDATE books SET title = ?, author = ?, genre = ?, publisher = ?, year = ?, shop_id = ? WHERE id = ?";
+        String sql = "UPDATE books SET title = ?, author = ?, genre = ?, publisher = ?, year = ?, price = ?, shop_id = ? WHERE id = ?";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -94,8 +97,9 @@ public class BookRepository {
             pstmt.setString(3, book.getGenre());
             pstmt.setString(4, book.getPublisher());
             pstmt.setInt(5, book.getYear());
-            pstmt.setInt(6, book.getShop().getId());
-            pstmt.setInt(7, book.getId());
+            pstmt.setInt(5, book.getPrice());
+            pstmt.setInt(7, book.getShop().getId());
+            pstmt.setInt(8, book.getId());
 
             pstmt.executeUpdate();
         }
@@ -112,4 +116,5 @@ public class BookRepository {
             pstmt.executeUpdate();
         }
     }
+
 }

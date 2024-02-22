@@ -73,6 +73,8 @@ public class BookUtils {
         String publisher = scanner.next();
         System.out.println("Enter book year: ");
         int year = scanner.nextInt();
+        System.out.println("Enter book price: ");
+        int price = scanner.nextInt();
 
         System.out.println("Available shops: ");
         shopRepository.getAllShops().forEach(shop -> System.out.println(shop.getId() + ". " + shop.getName()));
@@ -87,6 +89,7 @@ public class BookUtils {
         book.setGenre(genre);
         book.setPublisher(publisher);
         book.setYear(year);
+        book.setPrice(price);
         book.setShop(shopRepository.readShopByName(nameShop));
 
         bookRepository.createBook(book);

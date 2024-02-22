@@ -24,6 +24,7 @@ public class BaseRepository {
                     "genre VARCHAR(255), " +
                     "publisher VARCHAR(255), " +
                     "year INT, " +
+                    "price INT, " +
                     "shop_id INT)";
             stmt.execute(sql);
 
@@ -38,10 +39,17 @@ public class BaseRepository {
                     "id SERIAL PRIMARY KEY, " +
                     "money INT, " +
                     "name VARCHAR(255), " +
-                    "email VARCHAR(255))";
+                    "email VARCHAR(255), " +
+                    "is_admin BOOLEAN DEFAULT FALSE)";
             stmt.execute(sql);
 
-            sql = "CREATE TABLE IF NOT EXISTS user_books (" +
+            sql = "CREATE TABLE IF NOT EXISTS user_wishlist (" +
+                    "user_id INT REFERENCES users(id), " +
+                    "book_id INT REFERENCES books(id), " +
+                    "PRIMARY KEY (user_id, book_id))";
+            stmt.execute(sql);
+
+            sql = "CREATE TABLE IF NOT EXISTS purchase_book (" +
                     "user_id INT REFERENCES users(id), " +
                     "book_id INT REFERENCES books(id), " +
                     "PRIMARY KEY (user_id, book_id))";
