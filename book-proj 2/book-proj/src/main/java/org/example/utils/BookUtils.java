@@ -96,10 +96,10 @@ public class BookUtils {
     }
 
     private static void viewBook(Scanner scanner, BookRepository bookRepository) throws SQLException {
-        System.out.print("Enter book ID: ");
-        int id = scanner.nextInt();
+        System.out.print("Enter book name: ");
+        String name = scanner.next();
 
-        Book book = bookRepository.readBook(id);
+        Book book = bookRepository.getBookByName(name);
         if (book != null) {
             System.out.println("Title: " + book.getTitle());
             System.out.println("Author: " + book.getAuthor());

@@ -11,6 +11,7 @@ import java.util.List;
 
 import static org.example.repository.BaseRepository.getConnection;
 
+
 public class BookRepository {
 
     public void createBook(Book book) throws SQLException {
@@ -114,6 +115,32 @@ public class BookRepository {
             pstmt.setInt(1, id);
 
             pstmt.executeUpdate();
+        }
+    }
+
+    public Book getBookByName(String name) throws SQLException {
+        String sql = "SELECT * FROM books WHERE name = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, name);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                Book book = new Book();
+                book.setId(rs.getInt("id"));
+                book.setTitle(rs.getString("title"));
+                book.setAuthor(rs.getString("author"));
+                book.setGenre(rs.getString("genre"));
+                book.setPublisher(rs.getString("publisher"));
+                book.setYear(rs.getInt("year"));
+                book.setPrice(rs.getInt("price"));
+                return book;
+            } else {
+                return null;
+            }
         }
     }
 

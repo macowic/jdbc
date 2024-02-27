@@ -43,9 +43,9 @@ public class PurchaseUtils {
         System.out.print("Enter user ID: ");
         int userId = scanner.nextInt();
         System.out.print("Enter book ID: ");
-        int bookId = scanner.nextInt();
+        String title = scanner.next();
 
-        purchaseRepository.createPurchase(userId, bookId);
+        purchaseRepository.createPurchase(userId, title);
         System.out.println("Purchase made successfully!");
     }
 
@@ -53,15 +53,15 @@ public class PurchaseUtils {
         List<Purchase> purchases = purchaseRepository.getAllPurchases();
 
         for (Purchase purchase : purchases) {
-            System.out.println("User ID: " + purchase.getUser().getId() + ", Book ID: " + purchase.getBook().getId());
+            System.out.println("User name: " + purchase.getUser().getName() + ", Book name: " + purchase.getBook().getTitle());
         }
     }
 
     private static void viewAllBooksByUser(Scanner scanner, PurchaseRepository purchaseRepository) throws SQLException {
-        System.out.print("Enter user ID: ");
-        int userId = scanner.nextInt();
+        System.out.print("Enter user name: ");
+        String userName = scanner.next();
 
-        List<Book> books = purchaseRepository.getAllBooksByUser(userId);
+        List<Book> books = purchaseRepository.getAllBooksByUser(userName);
 
         for (Book book : books) {
             System.out.println("Book ID: " + book.getId() + ", Book Title: " + book.getTitle());

@@ -23,6 +23,7 @@ public class BaseRepository {
                     "author VARCHAR(255), " +
                     "genre VARCHAR(255), " +
                     "publisher VARCHAR(255), " +
+                    "description VARCHAR(255), " +
                     "year INT, " +
                     "price INT, " +
                     "shop_id INT)";
@@ -40,16 +41,17 @@ public class BaseRepository {
                     "money INT, " +
                     "name VARCHAR(255), " +
                     "email VARCHAR(255), " +
+                    "password VARCHAR(255), " +
                     "is_admin BOOLEAN DEFAULT FALSE)";
             stmt.execute(sql);
 
-            sql = "CREATE TABLE IF NOT EXISTS user_wishlist (" +
+            sql = "CREATE TABLE IF NOT EXISTS wishlist (" +
                     "user_id INT REFERENCES users(id), " +
                     "book_id INT REFERENCES books(id), " +
                     "PRIMARY KEY (user_id, book_id))";
             stmt.execute(sql);
 
-            sql = "CREATE TABLE IF NOT EXISTS purchase_book (" +
+            sql = "CREATE TABLE IF NOT EXISTS purchase (" +
                     "user_id INT REFERENCES users(id), " +
                     "book_id INT REFERENCES books(id), " +
                     "PRIMARY KEY (user_id, book_id))";

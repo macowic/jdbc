@@ -14,7 +14,7 @@ import static org.example.repository.BaseRepository.getConnection;
 public class WishlistRepository {
 
     public void addToWishlist(int userId, int bookId) throws SQLException {
-        String sql = "INSERT INTO user_wishlist (user_id, book_id) VALUES (?, ?)";
+        String sql = "INSERT INTO wishlist (user_id, book_id) VALUES (?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -28,9 +28,9 @@ public class WishlistRepository {
 
     public List<Book> getAllBooksInWishlist(int userId) throws SQLException {
         List<Book> books = new ArrayList<>();
-        String sql = "SELECT books.* FROM user_wishlist " +
-                "JOIN books ON books.id = user_wishlist.book_id " +
-                "WHERE user_wishlist.user_id = ?";
+        String sql = "SELECT books.* FROM wishlist " +
+                "JOIN books ON books.id = wishlist.book_id " +
+                "WHERE wishlist.user_id = ?";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
